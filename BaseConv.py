@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 from string import digits, ascii_uppercase #, ascii_lowercase
-from Decorators.decorators import memoised
 
 MINUS_SIGN = '-'
 ZERO = '0'
@@ -115,7 +114,6 @@ def _ValToChar(inputNum):
 	except IndexError:
 		raise InvalidInternalValueError
 
-@memoised
 def IntoDec(inNum, inBas):
 	'''Returns an int.
 	'''
@@ -126,7 +124,6 @@ def IntoDec(inNum, inBas):
 	except ValueError:
 		raise InvalidInputBaseError
 
-@memoised
 def FromDec(inNum, outBas):
 	'''Is an error for inNum to not be an integer.
 	'''
