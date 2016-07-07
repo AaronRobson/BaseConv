@@ -1,8 +1,7 @@
 #!/usr/bin/python
 
-#Unit testing
-
 import unittest
+
 import BaseConv
 
 class TestBaseConvClass(unittest.TestCase):
