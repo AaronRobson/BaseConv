@@ -2,11 +2,15 @@
 
 import unittest
 
-import BaseConv
+try:
+  #For "nosetests".
+  import BaseConv.BaseConv as b
+except ImportError:
+  import BaseConv as b
 
 class TestBaseConvClass(unittest.TestCase):
   def setUp(self):
-    self.support = BaseConv
+    self.support = b
 
   """
   def testCharToVal(self):
