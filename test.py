@@ -14,7 +14,7 @@ class TestBaseConvClass(unittest.TestCase):
     self.assertEqual(self.support._CharToVal('9'), 9, 'CharToVal Fail: standard upper inclusive boundary.')
     self.assertEqual(self.support._CharToVal('A'), 10, 'CharToVal Fail: non-standard lower inclusive boundary.')
     self.assertEqual(self.support._CharToVal('Z'), 35, 'CharToVal Fail: non-standard upper inclusive boundary.')
-  """
+
   def testValToChar(self):
     self.assertEqual(self.support._ValToChar('0'), '0', 'ValToChar Fail: standard lower inclusive boundary from string.')
     self.assertEqual(self.support._ValToChar(0), '0', 'ValToChar Fail: standard lower inclusive boundary.')
@@ -23,7 +23,6 @@ class TestBaseConvClass(unittest.TestCase):
     self.assertEqual(self.support._ValToChar(35), 'Z', 'ValToChar Fail: non-standard upper inclusive boundary.')
     self.assertRaises(self.support.InvalidInternalValueError, lambda _: self.support._ValToChar(-1), 'ValToChar Fail: beyond lower band.')
     self.assertRaises(self.support.InvalidInternalValueError, lambda _: self.support._ValToChar(36), 'ValToChar Fail: beyond upper band.')
-
 
   def testValidNum(self):
     self.assertEqual(self.support._ValidNum(0), '0', 'ValidNum Fail: standard lower inclusive boundary.')
@@ -45,7 +44,7 @@ class TestBaseConvClass(unittest.TestCase):
     self.assertEqual(self.support._ValidBas(2), 2, 'ValidBas fail: above lower boundary')
     self.assertEqual(self.support._ValidBas(10), 10, 'ValidBas fail: standard decimal')
     self.assertEqual(self.support._ValidBas('10'), 10, 'ValidBas fail: standard decimal from string')
-
+  """
   def testIntoDec(self):
     self.assertEqual(self.support.IntoDec(10, 2), 2, 'IntoDec Fail: from binary simple.')
     self.assertEqual(self.support.IntoDec(-10, 2), -2, 'IntoDec Fail: from binary simple but negative.')
@@ -56,7 +55,7 @@ class TestBaseConvClass(unittest.TestCase):
     self.assertEqual(self.support.FromDec(15, 16), 'F', 'FromDec Fail: edge.')
     self.assertEqual(self.support.FromDec(-15, 16), '-F', 'FromDec Fail: edge minus.')
     self.assertEqual(self.support.FromDec(42, 2), '101010', 'FromDec Fail: to boolean')
-
+  
   def testBasCalc(self):
     self.assertEqual(self.support.BasCalc(101010, 2, 10), '42', 'BasCalc Fail: binary to decimal.')
     self.assertEqual(self.support.BasCalc('101010', '2', '10'), '42', 'BasCalc Fail: text binary to decimal.')
@@ -72,7 +71,6 @@ class TestBaseConvClass(unittest.TestCase):
 
     for i in range(1000):
       self.assertEqual(self.support.BasCalc('DEADBEEF', 16, 2), '11011110101011011011111011101111', '')
-
   """
   def testValidInputNumForBas(self):
     'ValidInputNumForBas fail: number given as string', self.support._ValidInputNumForBas(9, 10)
@@ -85,4 +83,3 @@ class TestBaseConvClass(unittest.TestCase):
 
 if __name__ == "__main__":
   unittest.main()
-
