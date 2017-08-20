@@ -1,7 +1,11 @@
 #!/usr/bin/python
 
 from string import ascii_letters, digits
-import tkinter as tk
+
+try:
+  import tkinter as tk
+except:
+  import Tkinter as tk
 
 import BaseConv
 
