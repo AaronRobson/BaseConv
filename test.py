@@ -8,6 +8,8 @@ try:
 except ImportError:
   import BaseConv as b
 
+import BaseConvGUI
+
 class TestBaseConvClass(unittest.TestCase):
   def setUp(self):
     self.support = b
