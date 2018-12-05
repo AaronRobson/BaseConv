@@ -3,7 +3,6 @@
 import unittest
 
 import BaseConv
-import BaseConvGUI
 
 class TestBaseConvClass(unittest.TestCase):
     def setUp(self):
