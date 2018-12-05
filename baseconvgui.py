@@ -7,7 +7,7 @@ try:
 except:
     import Tkinter as tk
 
-import BaseConv
+import baseconv
 
 VALIDATION_CHOICE = 'all'
 JUSTIFY_ENTRY = tk.RIGHT
