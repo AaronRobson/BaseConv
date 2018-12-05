@@ -2,6 +2,8 @@
 
 from string import digits, ascii_uppercase #, ascii_lowercase
 
+from six.moves import input
+
 MINUS_SIGN = '-'
 ZERO = '0'
 
