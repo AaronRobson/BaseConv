@@ -77,29 +77,6 @@ def _ValidBas(value):
             return intValue # nominal case
         else:
             raise InvalidBaseError
-"""
-def _ValidInputNumForBas(num, bas=DEFAULT_BASE):
-    try:
-        bas = int(bas)
-    except ValueError:
-        raise InvalidInputBaseError
-    else:
-        num = str(num)
-
-        if num[0] == MINUS_SIGN:
-            num = num[1:]
-
-        for i in str(num):
-            if bas <= CharToVal(i):
-                raise InvalidInputBaseError
-"""
-"""
-def _CharToVal(inputChar):
-    try:
-        return ALLOWED_SYMBOLS.index(inputChar)
-    except ValueError:
-        raise InvalidInternalValueError
-"""
 
 def _ValToChar(inputNum):
     try:
