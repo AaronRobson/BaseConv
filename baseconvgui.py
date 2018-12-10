@@ -44,13 +44,13 @@ class GUI(tk.Tk):
         edtInNum.focus_set()
 
         self.vInBase = tk.IntVar()
-        self.vInBase.set(BaseConv.DEFAULT_BASE)
+        self.vInBase.set(baseconv.DEFAULT_BASE)
         
         tk.Label(self, text='Input Base').pack(anchor=tk.W)
         tk.Entry(self, justify=JUSTIFY_ENTRY, textvariable=self.vInBase, validate=VALIDATION_CHOICE, validatecommand=vNum).pack(fill=tk.X)
 
         self.vOutBase = tk.IntVar()
-        self.vOutBase.set(BaseConv.DEFAULT_BASE)
+        self.vOutBase.set(baseconv.DEFAULT_BASE)
 
         tk.Label(self, text='Output Base').pack(anchor=tk.W)
         tk.Entry(self, justify=JUSTIFY_ENTRY, textvariable=self.vOutBase, validate=VALIDATION_CHOICE, validatecommand=vNum).pack(fill=tk.X)
@@ -130,8 +130,8 @@ class GUI(tk.Tk):
 
     def Calculate(self, event=None):
         try:
-            result = BaseConv.BasCalc(self.vInNum.get(), self.vInBase.get(), self.vOutBase.get())
-        except (BaseConv.BaseConvError) as e:
+            result = baseconv.BasCalc(self.vInNum.get(), self.vInBase.get(), self.vOutBase.get())
+        except (baseconv.BaseConvError) as e:
             result = e
             print(result)
         else:
