@@ -18,3 +18,7 @@ script:
   - nosetests
   - pip install flake8
   - flake8 .
+
+after_success:
+  - pip install python-coveralls
+  - coveralls
