@@ -1,8 +1,11 @@
 #!/usr/bin/python
 
 import unittest
+from hypothesis import given
+import hypothesis.strategies as st
+import string
 
-from baseconv import IntoDec, FromDec, BasCalc
+from baseconv import IntoDec, FromDec, BasCalc, MINIMUM_BASE
 
 
 class TestBaseConvClass(unittest.TestCase):
@@ -17,6 +20,14 @@ class TestBaseConvClass(unittest.TestCase):
         self.assertEqual(FromDec(15, 16), 'F', 'edge')
         self.assertEqual(FromDec(-15, 16), '-F', 'edge minus')
         self.assertEqual(FromDec(42, 2), '101010', 'to binary')
+
+    @given(
+        number=st.integers(),
+        base=st.integers(
+            min_value=MINIMUM_BASE,
+            max_value=len(string.ascii_uppercase)))
+    def test_convert_FromDec_is_reverted_by_IntoDec(self, number, base):
+        self.assertEqual(IntoDec(FromDec(number, base), base), number)
 
     def testBasCalc(self):
         self.assertEqual(BasCalc(101010, 2, 10), '42', 'binary to decimal')
