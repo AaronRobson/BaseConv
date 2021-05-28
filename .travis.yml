@@ -5,8 +5,6 @@ language: python
 
 matrix:
   include:
-    - python: "2.7"
-    - python: pypy
     - python: "3.5"
     - python: "3.6"
     - python: "3.7"
@@ -18,14 +16,14 @@ matrix:
   allow_failures:
     - python: "3.10"
     - python: nightly
+    - python: pypy3
 
 install:
-  - pip install -r requirements.txt
-  - pip install flake8
+  - make install-packages
   - pip install python-coveralls
 
 script:
-  - flake8 .
+  - make check
   - nosetests
   - coverage run --source=. -m unittest discover
 

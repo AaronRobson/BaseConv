@@ -1,16 +1,16 @@
 import unittest
 import string
 
-from baseconvgui import OnValidateGiven
+from baseconvgui import on_validate_given
 
 
 class OnValidateGivenTest(unittest.TestCase):
 
     def test_valid(self):
-        self.assertTrue(OnValidateGiven(string.digits[0], string.digits))
+        self.assertTrue(on_validate_given(string.digits[0], string.digits))
 
     def test_invalid(self):
-        self.assertFalse(OnValidateGiven('*', string.digits))
+        self.assertFalse(on_validate_given('*', string.digits))
 
 
 if __name__ == "__main__":
