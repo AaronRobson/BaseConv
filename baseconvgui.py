@@ -1,11 +1,7 @@
 #!/usr/bin/python
 
 from string import ascii_letters, digits
-
-try:
-    import tkinter as tk
-except ImportError:
-    import Tkinter as tk
+import tkinter as tk
 
 import baseconv
 
@@ -13,8 +9,8 @@ VALIDATION_CHOICE = 'all'
 JUSTIFY_ENTRY = tk.RIGHT
 
 
-def OnValidateGiven(toValidate, allowedChars):
-    return all(char in allowedChars for char in toValidate)
+def on_validate_given(to_validate, allowed_chars):
+    return all(char in allowed_chars for char in to_validate)
 
 
 class GUI(tk.Tk):
@@ -32,93 +28,100 @@ class GUI(tk.Tk):
         # always on top (might be windows only)
         self.wm_attributes('-topmost', 1)
 
-        formatTuple = ('%d', '%i', '%P', '%s', '%S', '%v', '%V', '%W')
-        vNumLett = (self.register(self.OnValidateNumberLetter),) + formatTuple
-        vNum = (self.register(self.OnValidateNumber),) + formatTuple
-        vReadOnly = (self.register(self.OnValidateReadOnly),) + formatTuple
+        format_tuple = ('%d', '%i', '%P', '%s', '%S', '%v', '%V', '%W')
+        v_num_lett = (self.register(self.on_validate_number_letter),) + format_tuple
+        v_num = (self.register(self.on_validate_number),) + format_tuple
+        v_read_only = (self.register(self.on_validate_read_only),) + format_tuple
 
-        self.vInNum = tk.StringVar()
+        self.v_in_num = tk.StringVar()
 
         tk.Label(self, text='Input Number').pack(anchor=tk.W)
-        edtInNum = tk.Entry(self,
-                            justify=JUSTIFY_ENTRY,
-                            textvariable=self.vInNum,
-                            validate=VALIDATION_CHOICE,
-                            validatecommand=vNumLett)
-        edtInNum.pack(fill=tk.X)
-        edtInNum.focus_set()
+        edt_in_num = tk.Entry(
+            self,
+            justify=JUSTIFY_ENTRY,
+            textvariable=self.v_in_num,
+            validate=VALIDATION_CHOICE,
+            validatecommand=v_num_lett)
+        edt_in_num.pack(fill=tk.X)
+        edt_in_num.focus_set()
 
-        self.vInBase = tk.IntVar()
-        self.vInBase.set(baseconv.DEFAULT_BASE)
+        self.v_in_base = tk.IntVar()
+        self.v_in_base.set(baseconv.DEFAULT_BASE)
 
         tk.Label(self, text='Input Base').pack(anchor=tk.W)
-        tk.Entry(self,
-                 justify=JUSTIFY_ENTRY,
-                 textvariable=self.vInBase,
-                 validate=VALIDATION_CHOICE,
-                 validatecommand=vNum).pack(fill=tk.X)
+        tk.Entry(
+            self,
+            justify=JUSTIFY_ENTRY,
+            textvariable=self.v_in_base,
+            validate=VALIDATION_CHOICE,
+            validatecommand=v_num).pack(fill=tk.X)
 
-        self.vOutBase = tk.IntVar()
-        self.vOutBase.set(baseconv.DEFAULT_BASE)
+        self.v_out_base = tk.IntVar()
+        self.v_out_base.set(baseconv.DEFAULT_BASE)
 
         tk.Label(self, text='Output Base').pack(anchor=tk.W)
-        tk.Entry(self,
-                 justify=JUSTIFY_ENTRY,
-                 textvariable=self.vOutBase,
-                 validate=VALIDATION_CHOICE,
-                 validatecommand=vNum).pack(fill=tk.X)
+        tk.Entry(
+            self,
+            justify=JUSTIFY_ENTRY,
+            textvariable=self.v_out_base,
+            validate=VALIDATION_CHOICE,
+            validatecommand=v_num).pack(fill=tk.X)
 
-        fCont = tk.Frame(self)
-        tk.Button(fCont,
-                  text='Calculate',
-                  command=self.Calculate,
-                  underline=1).pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
-        tk.Button(fCont,
-                  text='Swap Bases',
-                  command=self.Swap,
-                  underline=0).pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
-        tk.Button(fCont,
-                  text='Copy',
-                  command=self.Copy,
-                  underline=0).pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
-        fCont.pack(fill=tk.X)
+        f_cont = tk.Frame(self)
+        tk.Button(
+            f_cont,
+            text='Calculate',
+            command=self.calculate,
+            underline=1).pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
+        tk.Button(
+            f_cont,
+            text='Swap Bases',
+            command=self.swap,
+            underline=0).pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
+        tk.Button(
+            f_cont,
+            text='Copy',
+            command=self.copy,
+            underline=0).pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
+        f_cont.pack(fill=tk.X)
 
-        self.vOutNum = tk.StringVar()
+        self.v_out_num = tk.StringVar()
 
         tk.Label(self, text='Output Number').pack(anchor=tk.W)
-        self.edtOutNum = tk.Entry(self,
-                                  justify=JUSTIFY_ENTRY,
-                                  textvariable=self.vOutNum,
-                                  validate=VALIDATION_CHOICE,
-                                  validatecommand=vReadOnly)
-        self.edtOutNum.pack(fill=tk.X)
+        self.edt_out_num = tk.Entry(
+            self,
+            justify=JUSTIFY_ENTRY,
+            textvariable=self.v_out_num,
+            validate=VALIDATION_CHOICE,
+            validatecommand=v_read_only)
+        self.edt_out_num.pack(fill=tk.X)
 
-        self.bind('<Return>', self.Calculate)
+        self.bind('<Return>', self.calculate)
 
-        self.bind('<Shift-KeyRelease-Escape>', self.CancelEscapeEvent)
-        self.bind('<KeyRelease-Escape>', self.EscapeEvent)
+        self.bind('<Shift-KeyRelease-Escape>', self.cancel_escape_event)
+        self.bind('<KeyRelease-Escape>', self.escape_event)
 
-        self.bind('<Alt-a>', self.Calculate)
-        self.bind('<Alt-s>', self.Swap)
-        self.bind('<Alt-c>', self.Copy)
+        self.bind('<Alt-a>', self.calculate)
+        self.bind('<Alt-s>', self.swap)
+        self.bind('<Alt-c>', self.copy)
 
         # in case the caps lock is on (yes silly it works like this)
-        self.bind('<Alt-A>', self.Calculate)
-        self.bind('<Alt-S>', self.Swap)
-        self.bind('<Alt-C>', self.Copy)
+        self.bind('<Alt-A>', self.calculate)
+        self.bind('<Alt-S>', self.swap)
+        self.bind('<Alt-C>', self.copy)
 
         # draw all the controls like "Application.ProcessMessages" in delphi
         self.update_idletasks()
         # then set the newly generated window as the minimum size of the window
         self.minsize(self.winfo_reqwidth(), self.winfo_reqheight())
 
-    def CancelEscapeEvent(self, event=None):
+    def cancel_escape_event(self, event=None):
         pass
 
-    def EscapeEvent(self, event=None):
+    def escape_event(self, event=None):
         self.destroy()
 
-    def OnValidateNumberLetter(self, d, i, P, s, S, v, V, W):
+    def on_validate_number_letter(self, d, i, p_upper, s, s_upper, v, v_upper, w_upper):
         '''Valid percent substitutions (from the Tk entry man page)
         %d = Type of action (1=insert, 0=delete, -1 for others)
         %i = index of char string to be inserted/deleted, or -1
@@ -134,58 +137,58 @@ class GUI(tk.Tk):
         print('OnValidate:')
         print('d=%r' % (d))
         print('i=%r' % (i))
-        print('P=%r' % (P))
+        print('P=%r' % (p_upper))
         print('s=%r' % (s))
-        print('S=%r' % (S))
+        print('S=%r' % (s_upper))
         print('v=%r' % (v))
-        print('V=%r' % (V))
-        print('W=%r' % (W))
+        print('V=%r' % (v_upper))
+        print('W=%r' % (w_upper))
         """
+        return on_validate_given(p_upper, digits+ascii_letters)
 
-        return OnValidateGiven(P, digits+ascii_letters)
+    def on_validate_number(self, d, i, p_upper, s, s_upper, v, v_upper, w_upper):
+        return on_validate_given(p_upper, digits)
 
-    def OnValidateNumber(self, d, i, P, s, S, v, V, W):
-        return OnValidateGiven(P, digits)
-
-    def OnValidateReadOnly(self, d, i, P, s, S, v, V, W):
+    def on_validate_read_only(self, d, i, p_upper, s, s_upper, v, v_upper, w_upper):
         '''Regardless of input allow no user changes.
         '''
         return False
 
-    def Calculate(self, event=None):
+    def calculate(self, event=None):
         try:
-            result = baseconv.BasCalc(self.vInNum.get(),
-                                      self.vInBase.get(),
-                                      self.vOutBase.get())
+            result = baseconv.bas_calc(
+                self.v_in_num.get(),
+                self.v_in_base.get(),
+                self.v_out_base.get())
         except (baseconv.BaseConvError) as e:
             result = e
             print(result)
         else:
-            # uses "result" variable instead of "vOutNum" tk variable as
+            # uses "result" variable instead of "v_out_num" tk variable as
             # otherwise this line would be temporally coupled to the setting
             # of that control's value, making coding awkward.
-            print('%r in base %r = %r in base %r' % (self.vInNum.get(),
-                                                     self.vInBase.get(),
+            print('%r in base %r = %r in base %r' % (self.v_in_num.get(),
+                                                     self.v_in_base.get(),
                                                      result,
-                                                     self.vOutBase.get()))
+                                                     self.v_out_base.get()))
 
-        self.vOutNum.set(result)
+        self.v_out_num.set(result)
 
         # Telling it to validate again as programatically filling the box with
         # text means validation gets turned off which is used to
         # make it readonly.
         # http://coding.derkeiler.com/Archive/Tcl/comp.lang.tcl/2003-11/0618.html
-        self.edtOutNum.config(validate=VALIDATION_CHOICE)
+        self.edt_out_num.config(validate=VALIDATION_CHOICE)
 
-    def Swap(self, event=None):
-        vIn, vOut = self.vInBase.get(), self.vOutBase.get()
+    def swap(self, event=None):
+        v_in, v_out = self.v_in_base.get(), self.v_out_base.get()
 
-        self.vInBase.set(vOut)
-        self.vOutBase.set(vIn)
+        self.v_in_base.set(v_out)
+        self.v_out_base.set(v_in)
 
-    def Copy(self, event=None):
+    def copy(self, event=None):
         self.clipboard_clear()
-        self.clipboard_append(self.vOutNum.get())
+        self.clipboard_append(self.v_out_num.get())
 
 
 if __name__ == "__main__":
